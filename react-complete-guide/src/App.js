@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-const app = (props) => {
+const app = props => {
   const [personsState, setPersonsState] = useState({
     persons: [
       { name: "Max", age: "28" },
@@ -23,7 +23,7 @@ console.log(personsState, otherState);
         { name: "Maximilian", age: "28" },
         { name: "Manu", age: "29" },
         { name: "Stephanie", age: "27" },
-      ],
+      ]
     });
   };
 

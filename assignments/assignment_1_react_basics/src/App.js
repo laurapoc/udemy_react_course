@@ -53,7 +53,7 @@ userChangeHandler = (event) => {
         <Userinput inputText={this.state.users[1].username}></Userinput>
         <UserOutput username={this.state.users[1].username} text="This is the other text"></UserOutput>
         <Userinput changed={this.userChangeHandler} inputText={this.state.users[2].username}></Userinput>
-        <UserOutput username={this.state.users[2].username} text="And the other one"></UserOutput>
+        <UserOutput username={this.state.users[2].username} text=" One more text line."></UserOutput>
         <button  style={style} onClick={this.switchUserHandler.bind(this, "Lau")}>Switch All User Names</button>
       </div>
     );

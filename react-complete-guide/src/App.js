@@ -12,26 +12,34 @@ class App extends Component {
     ],
     otherState: "some other value",
     showPersons: false,
-  };
+  }
 
-
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Max", age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: "Stephanie", age: 27 },
-        { name: "Steve", age: 29 },
-      ],
+  nameChangedHandler = ( event, id ) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     });
-  };
 
-deletePersonHandler = (personIndex) => {
-// const persons = this.state.persons.slice();
-const persons = [...this.state.persons];
-persons.splice(personIndex, 1);
-this.setState({persons: persons});
-}
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // Alternative to spread operator:
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState( {persons: persons} );
+  }
+
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
@@ -53,10 +61,15 @@ this.setState({persons: persons});
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person click={() => this.deletePersonHandler(index)} 
-            name={person.name}
-            age={person.age}
-            key={person.id} />;
+            return (
+              <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+              />
+            );
           })}
         </div>
       );

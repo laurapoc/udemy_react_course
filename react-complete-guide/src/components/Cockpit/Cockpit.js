@@ -6,7 +6,13 @@ const Cockpit = ( props ) => {
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
     // HTTP request ... You can do that.
-  });
+    setTimeout(() => {
+      alert("Saved data to cloud");
+    }, 1000);
+  }, [props.persons]);
+  // If you want to get an alert only once after the pagea restarts,
+  // you shoud pass an empty array [] instead of [props.persons]
+  
     const assignedClasses = [];
     let btnClass = "";
     if(props.showPersons) {

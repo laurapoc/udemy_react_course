@@ -1,30 +1,39 @@
 import React, { useEffect } from "react";
 import classes from "./Cockpit.module.css";
 
-
-const Cockpit = ( props ) => {
+const Cockpit = (props) => {
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
     // HTTP request ... You can do that.
     setTimeout(() => {
       alert("Saved data to cloud");
     }, 1000);
-  }, [props.persons]);
+    return () => {
+      console.log("[Cockpit.js] cleanup work in useEffect");
+    };
+  }, []);
   // If you want to get an alert only once after the pagea restarts,
-  // you shoud pass an empty array [] instead of [props.persons]
-  
-    const assignedClasses = [];
-    let btnClass = "";
-    if(props.showPersons) {
-        btnClass = classes.Red;
-    }
-    
-    if (props.persons.length <= 2) {
-      assignedClasses.push(classes.red); //classes = ["red"]
-    }
-    if (props.persons.length <= 1) {
-      assignedClasses.push(classes.bold); // classes = ["red", "bold"]
-    }
+  // you shoud pass an empty array [] instead of [props.persons] and vise versus
+
+  useEffect(() => {
+    console.log("[Cockpit.js] 2nd useEffect");
+    return () => {
+      console.log("[Cockpit.js] cleanup work in 2nd useEffect");
+    };
+  });
+
+  const assignedClasses = [];
+  let btnClass = "";
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
+
+  if (props.personsLength <= 2) {
+    assignedClasses.push(classes.red); //classes = ["red"]
+  }
+  if (props.personsLength <= 1) {
+    assignedClasses.push(classes.bold); // classes = ["red", "bold"]
+  }
 
   return (
     <div className={classes.Cockpit}>
@@ -37,4 +46,5 @@ const Cockpit = ( props ) => {
   );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);
+ 
